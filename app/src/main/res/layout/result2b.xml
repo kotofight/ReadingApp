@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bground"
+    android:orientation="vertical" >
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:id="@+id/word"
+        >
+        <include layout="@layout/home_title_layout"/>
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/word"
+        >
+
+        <LinearLayout
+            android:id="@+id/a1"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+
+            android:layout_alignParentTop="true">
+
+            <ListView
+                android:id="@+id/soureListid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/a2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/a1" >
+
+            <include layout="@layout/upload"></include>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/a3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/a2">
+
+            <ListView
+                android:id="@+id/previewlistid"
+                android:layout_width="wrap_content"
+                android:layout_height="521dp" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

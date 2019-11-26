@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bground"
+    android:orientation="vertical" >
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:id="@+id/title_ry"
+        >
+        <include layout="@layout/home_title_layout"/>
+    </RelativeLayout>
+    <LinearLayout
+        android:id="@+id/footbar_layout_ly"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        >
+
+    </LinearLayout>
+
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:id="@+id/viewflipper_scrollview"
+            android:layout_above="@id/footbar_layout_ly"
+            android:layout_below="@id/title_ry">
+
+
+            <LinearLayout
+                android:id="@+id/home_user_layout_ly"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                >
+
+                <include layout="@layout/aaa2"></include>"
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginTop="4dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/home_user_layout_ly">
+
+                <ListView
+                    android:id="@+id/list1view1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+
+
+
+
+        </RelativeLayout>
+
+
+
+</RelativeLayout>

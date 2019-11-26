@@ -1,0 +1,2 @@
+include ':app',':hwtxtreaderlib'
+rootProject.name='My Application'

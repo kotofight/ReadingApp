@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!--   定义详细的图片和描述的展示样式 -->
+        <!--   具体的假数据在 BookActivity 中模拟 -->
+
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:id="@+id/book_image"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"/>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="150dp"
+            android:id="@+id/book_name"
+            android:layout_gravity="center_vertical"
+            android:textSize="18sp"/>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/begin_read"
+            android:layout_width="90dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_vertical"
+            android:textAlignment="center"
+            android:text="开始阅读"
+            android:textColor="@color/black" />
+        <Button
+            android:id="@+id/col_book"
+            android:layout_width="90dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_vertical"
+            android:textAlignment="center"
+            android:text="收藏本书"
+            android:textColor="@color/black" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

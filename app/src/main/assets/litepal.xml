@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<litepal>
+    <!--书架储存-->
+    <dbname value="bookshelf"/>
+    <version value="2"></version>
+    <list>
+        <mapping class="com.example.myapplication.Common.Bean.Book"/>
+    </list>
+</litepal>

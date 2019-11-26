@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">悦读</string>
+
+    <string name="me">我的</string>
+    <string name="username">用户名</string>
+    <string name="book">书架</string>
+    <string name="loging">正在缓冲</string>
+
+    <string name="code_utf8">UTF-8</string>
+    <string name="code_gb2312">GB2312</string>
+    <string name="about">关于</string>
+    <string name="swich_code">点击Menu菜单切换合适编码</string>
+    <string name="aboutTitle">七剑项目组</string>
+    <string name="aboutInfo">做最实用的软件精品</string>
+    <string name="aboutOK">确定</string>
+
+    <string name="url">http://10.26.14.163:8080/</string>
+</resources>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/activity_book"
+    tools:context=".Common.SBookActivity">
+
+    <!-- 使用 ListView 来定义全局的图片文字展示样式 -->
+    <!--  具体的展示样式定义在 item_layout 中     -->
+    <!-- 通过 Book 类和 BookAdapter 适配器，把 BookActivity 中的假数据传递给 activity_book.xml 文件  -->
+    <!--  activity_book.xml 文件 展示图片与文字 (按照 item_layout.xml 的样式进行展示 )     -->
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/list_view"
+        >
+    </ListView>
+</LinearLayout>

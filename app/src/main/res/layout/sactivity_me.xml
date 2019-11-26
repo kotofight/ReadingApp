@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:leon="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Common.SmeActivity">
+    <TextView
+        android:layout_height="50dp"
+        android:layout_width="match_parent"
+        android:background="#FA8072"
+        android:text="@string/me"
+        android:layout_centerHorizontal="true"
+        android:textColor="#000000"
+        android:gravity="center"
+        android:textSize="20dp">
+    </TextView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        android:layout_marginBottom="10dp"
+        android:background="#fff"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profile_image"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:src="@drawable/review"
+            app:civ_border_color="#FFFFFF"
+            app:civ_border_width="2dp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="4dp"
+            android:id="@+id/username"
+            android:text="用户名"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <com.leon.lib.settingview.LSettingItem
+        android:id="@+id/item_one"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        leon:leftIcon="@drawable/save"
+        leon:leftText="钱包" />
+
+    <com.leon.lib.settingview.LSettingItem
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        leon:leftIcon="@drawable/info"
+        leon:leftText="待定" />
+
+    <com.leon.lib.settingview.LSettingItem
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        leon:leftIcon="@drawable/pic"
+        leon:leftText="待定"
+        leon:rightStyle="iconHide"/>
+
+    <com.leon.lib.settingview.LSettingItem
+        android:id="@+id/item_four"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/MyCheckBox"
+        leon:leftIcon="@drawable/logo"
+        leon:leftText="待定"
+        leon:rightStyle="iconCheck"/>
+
+
+    <com.leon.lib.settingview.LSettingItem
+        android:id="@+id/item_six"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/MyCheckBox"
+        leon:leftIcon="@drawable/message"
+        leon:rightStyle="iconSwitch"
+        leon:leftText="开启消息通知" />
+
+    <com.leon.lib.settingview.LSettingItem
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        leon:isShowUnderLine="false"
+        android:id="@+id/theme"
+        leon:leftIcon="@drawable/fot"
+        leon:leftText="夜间模式"
+        leon:rightStyle="iconSwitch" />
+
+    <Button
+        android:id="@+id/user_out"
+        android:layout_width="180dp"
+        android:layout_height="40dp"
+        android:background="@drawable/shape_button"
+        android:layout_gravity="center"
+        android:text="退出登录"
+        android:textColor="#ffffff"
+        android:layout_marginTop="20dp"/>
+</LinearLayout>
+</ScrollView>
+</LinearLayout>
