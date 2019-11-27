@@ -15,7 +15,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".Common.AddActivity"></activity>
+        <activity android:name=".Common.NothingActivity"></activity>
+        <activity android:name=".Common.AddActivity" />
         <activity
             android:name=".WelcomeActivity"
             android:windowSoftInputMode="adjustPan">
