@@ -1,77 +1,134 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="5dp" >
-    <!--个人头像-->
-    <ImageView
-        android:id="@+id/usePicPath"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginLeft="8dp" />
+    android:layout_marginTop="10dp">
+    <com.google.android.flexbox.FlexboxLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:justifyContent="space_between"
+        android:layout_marginLeft="8dp">
 
-    <!--个人账号-->
-    <TextView
-        android:id="@+id/userName"
+        <com.google.android.flexbox.FlexboxLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/userPicPath"
+                android:layout_width="50dp"
+                android:layout_height="50dp"/>
+            <TextView
+                android:id="@+id/userName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_alignSelf="flex_end" />
+        </com.google.android.flexbox.FlexboxLayout>
+
+        <ImageView
+            android:id="@+id/focus"
+            android:layout_width="30dp"
+            android:layout_height="30dp"/>
+    </com.google.android.flexbox.FlexboxLayout>
+
+
+    <com.google.android.flexbox.FlexboxLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="80dp"
-        android:layout_marginTop="-40dp" />
-    <!--关注图片-->
-    <ImageView
-        android:id="@+id/look"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="320dp"
-        android:layout_marginTop="-35dp"
-
-        />
+        android:layout_marginTop="6dp"
+        android:layout_marginLeft="8dp"
+        app:flexDirection="row">
+        <!--发表时间-->
+        <TextView
+            android:id="@+id/datetime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <!--发表地址-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="来自于 :"/>
+        <TextView
+            android:id="@+id/address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </com.google.android.flexbox.FlexboxLayout>
     <!--发表内容-->
     <TextView
         android:id="@+id/content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="8dp"/>
-    <!--发表时间-->
-    <TextView
-        android:id="@+id/datetime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:maxLines="10"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="8dp"/>
-    <!--发表地址-->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="128dp"
-        android:layout_marginTop="-20dp"
-        android:text="来自于 :"/>
-    <TextView
-        android:id="@+id/address"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="183dp"
-        android:layout_marginTop="-20dp"/>
     <!--发表的图片-->
     <ImageView
         android:id="@+id/picPath"
         android:layout_width="wrap_content"
-        android:layout_height="300dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="0dp"
-        android:layout_marginLeft="8dp"/>
-
-    <RelativeLayout
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_height="300dp" />
+    <com.google.android.flexbox.FlexboxLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/picPath"
-        android:id="@+id/title_ry"
-        >
-        <include layout="@layout/wh2example"/>
-    </RelativeLayout>
-
+        android:layout_height="30dp"
+        app:flexDirection="row"
+        app:justifyContent="space_around">
+        <com.google.android.flexbox.FlexboxLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            app:flexDirection="row">
+            <!--转发图片-->
+            <ImageView
+                android:id="@+id/forwardImg"
+                android:layout_width="40dp"
+                android:layout_height="40dp" />
+            <!--转发数量-->
+            <TextView
+                android:id="@+id/forward"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_alignSelf="flex_end"/>
+        </com.google.android.flexbox.FlexboxLayout>
+        <com.google.android.flexbox.FlexboxLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            app:flexDirection="row">
+            <!--评论图片-->
+            <ImageView
+                android:id="@+id/commentImg"
+                android:layout_width="40dp"
+                android:layout_height="40dp" />
+            <!--评论数量-->
+            <TextView
+                android:id="@+id/comment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_alignSelf="flex_end"/>
+        </com.google.android.flexbox.FlexboxLayout>
+        <com.google.android.flexbox.FlexboxLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            app:flexDirection="row">
+            <!--点赞图片-->
+            <ImageView
+                android:id="@+id/thumbUpImg"
+                android:layout_width="40dp"
+                android:layout_height="40dp" />
+            <!--点赞数量-->
+            <TextView
+                android:id="@+id/thumbUp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_alignSelf="flex_end"/>
+        </com.google.android.flexbox.FlexboxLayout>
+    </com.google.android.flexbox.FlexboxLayout>
+    <!--    添加分割线-->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/darkgray"/>
 </LinearLayout>
-
