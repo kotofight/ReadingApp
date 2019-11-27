@@ -1,8 +1,8 @@
 package com.example.myapplication;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -16,6 +16,9 @@ import com.example.myapplication.RequiestTest.RetrofitGet;
 import com.example.myapplication.ResponseModel.User;
 import com.example.myapplication.SQLiteDB.DBOperation;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -26,12 +29,14 @@ public class StartActivity extends AppCompatActivity {
     private EditText et_username;
     private EditText et_password;
     private DBOperation dbOperation;
-
+    private static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 0x01;
+    private Boolean Permit = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
 
+        CheckPermission();
 
         begin_login  =  (Button) findViewById(R.id.begin_login);
         et_username = (EditText) findViewById(R.id.username);
@@ -53,7 +58,32 @@ public class StartActivity extends AppCompatActivity {
        });
 
     }
+    private Boolean CheckPermission() {
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
 
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                    MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
+            return false;
+        }
+        return true;
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+
+        if (requestCode == MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Permit = true;
+            } else {
+                // Permission Denied
+                Toast.makeText(StartActivity.this, "请赋予软件储存权限", Toast.LENGTH_SHORT).show();
+            }
+            return;
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
     public void login(String account,String pswd)
     {
         Retrofit retrofit= RetrofitGet.getRetrofit();

@@ -36,7 +36,6 @@ public class Result2Activity extends AppCompatActivity implements DownloadListen
     private List<Introduction> previewList=new ArrayList<>();
     private final List<BookBean> soureList=new ArrayList<>();
     private String bookName;
-    //private List<Book> bookList=new ArrayList<>();
     ListView listView1;//网站资源
     ListView listView2;//服务器资源
     public static final int DOWN_START = 0;
@@ -54,13 +53,11 @@ public class Result2Activity extends AppCompatActivity implements DownloadListen
         listView2 =(ListView) findViewById(R.id.soureListid);
 
         new MyTask().execute();//--网站资源+服务器资源
-        //initSoure();//--
 
         listView1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Introduction book=previewList.get(position);
-                //Toast.makeText(ResultActivity.this,book.getName(),Toast.LENGTH_SHORT).show();
                 Intent intent=new Intent(Result2Activity.this,IntroductionActivity.class);
                 intent.putExtra("faceUrl",book.getFaceUrl());
                 startActivity(intent);
@@ -75,7 +72,6 @@ public class Result2Activity extends AppCompatActivity implements DownloadListen
                     download(position);
             }
         });
-       // EditText mypreview=(EditText) findViewById(R.id.mypreview);
        ImageButton back_button=(ImageButton)findViewById(R.id.backbutton);
        //文本框上移代码
         final View decorView = getWindow().getDecorView();
@@ -110,28 +106,24 @@ public class Result2Activity extends AppCompatActivity implements DownloadListen
             }
         };
     }
-
+    private static int index=0;//--下载通知id
     //回调接口实现--服务器资源
     @Override
-    public void startDownload(int size) {
+    public void startDownload(int index,int size) {
         Log.i("下载信息","开始下载,文件大小："+size);
     }
-    int downProgress=0;
     @Override
-    public void setDownloadPro(int position) {
-        downProgress+=position;
-                    //Toast.makeText(this,pro,Toast.LENGTH_SHORT);
+    public void setDownloadPro(int index,int downProgress) {
         Log.i("下载信息","文件下载进度："+downProgress+"%");
-        Toast.makeText(getApplicationContext(),"文件下载进度："+downProgress+"%",Toast.LENGTH_SHORT).show();
     }
     @Override
-    public void endDownload(Book book) {
+    public void endDownload(int index ,Book book) {
         Log.i("下载信息","下载完毕");
         Toast.makeText(getApplicationContext(),book.getBookName()+" 下载完毕",Toast.LENGTH_SHORT).show();
         addToDatabase(book);
     }
     @Override
-    public void errorDownload(){
+    public void errorDownload(int index){
         Log.i("下载信息","下载失败");
         Toast.makeText(getApplicationContext(),"下载失败!",Toast.LENGTH_SHORT).show();
     }
@@ -174,6 +166,7 @@ public class Result2Activity extends AppCompatActivity implements DownloadListen
         alert.setPositiveButton("下载", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                //notificationInit();
                 Log.i("下载确定",bookBean.toString());
                 Toast.makeText(getApplicationContext(),"开始下载",Toast.LENGTH_LONG).show();
                 loadStart(bookBean);
@@ -193,7 +186,8 @@ public class Result2Activity extends AppCompatActivity implements DownloadListen
 
     //调用下载线程开始下载--服务器资源
     void loadStart(BookBean bookBean){
-        new MyDownload(bookBean).download(Environment.getExternalStorageDirectory().getAbsolutePath(),this);
+        new MyDownload(this,bookBean).download(Environment.getExternalStorageDirectory().getAbsolutePath(),this,index);
+        index++;
     }
 
     //将下载好的文件添加到书架（数据库）
