@@ -1,52 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.myapplication">
+
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"></uses-permission>
-    <!--往SDCard写入数据权限 -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
-    <!--在SDCard中创建与删除文件权限 -->
-    <application  android:allowBackup="true"
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> <!-- 往SDCard写入数据权限 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <application
+        android:name="org.litepal.LitePalApplication"
+        android:allowBackup="true"
         android:icon="@drawable/pic2"
         android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/net"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme.NoActionBar"
-        android:networkSecurityConfig="@xml/net"
-        android:name="org.litepal.LitePalApplication">
-        <activity android:windowSoftInputMode="adjustPan" android:name=".WelcomeActivity">
+        android:theme="@style/AppTheme.NoActionBar">
+        <activity android:name=".Common.NothingActivity"></activity>
+        <activity android:name=".Common.AddActivity" />
+        <activity
+            android:name=".WelcomeActivity"
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Common.Result2Activity"></activity>
-        <activity android:name=".Common.ResultActivity"></activity>
-        <activity android:name=".Common.Main2Activity"></activity>
-        <activity android:name=".Common.Details_01"></activity>
-        <activity android:name=".Common.IntroductionActivity"></activity>
-
-        <activity android:name=".textreader.ListAllFileActivity"></activity>
-        <activity android:name=".textreader.TxtReader" ></activity>
-        <activity android:name=".MainActivity"></activity>
-
-        <activity android:name=".RegisterActivity"></activity>
-        <activity android:name=".StartActivity">
-        </activity>
-        <activity android:windowSoftInputMode="adjustPan" android:name=".Common.Style2Activity">
-        </activity>
-        <!--阅读器 -->
+        <activity android:name=".Common.Result2Activity" />
+        <activity android:name=".Common.ResultActivity" />
+        <activity android:name=".Common.Main2Activity" />
+        <activity android:name=".Common.Details_01" />
+        <activity android:name=".Common.IntroductionActivity" />
+        <activity android:name=".textreader.ListAllFileActivity" />
+        <activity android:name=".textreader.TxtReader" />
+        <activity android:name=".MainActivity" />
+        <activity android:name=".RegisterActivity" />
+        <activity android:name=".StartActivity" />
+        <activity
+            android:name=".Common.Style2Activity"
+            android:windowSoftInputMode="adjustPan" /> <!-- 阅读器 -->
         <activity
             android:name="com.bifan.txtreaderlib.ui.HwTxtPlayActivity"
             android:theme="@style/HwTxtFullScreen">
             <intent-filter>
                 <data android:scheme="txt" />
+
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
+
                 <data android:mimeType="text/plain" />
             </intent-filter>
         </activity>
     </application>
 
 </manifest>
-<!---->

@@ -15,4 +15,8 @@
     <string name="aboutOK">确定</string>
 
     <string name="url">http://10.26.14.163:8080/</string>
+
+    <string name="forward">12</string>
+    <string name="comment">23</string>
+    <string name="thubmup">34</string>
 </resources>

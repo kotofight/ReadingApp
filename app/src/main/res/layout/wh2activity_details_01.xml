@@ -1,22 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="Common.Details_01">
+    android:orientation="vertical">
+    <!--    引入头部布局文件-->
+    <include layout="@layout/wh2details_01_header"></include>
 
-    <RelativeLayout
-        android:id="@+id/header"
-        android:layout_width="match_parent"
-        android:layout_height="390dp"
-        android:layout_alignParentTop="true">
-        <include layout="@layout/wh2details_01_header"/>
-    </RelativeLayout>
 
-    <ListView
-        android:id="@+id/list_view"
-        android:layout_marginTop="390dp"
+    <!--    不同用户动态布局RecyclerView-->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-</RelativeLayout>
+        android:layout_height="wrap_content">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+</LinearLayout>
