@@ -18,6 +18,10 @@ import android.widget.Toast;
 import com.bifan.txtreaderlib.Spider.BookBean;
 import com.bifan.txtreaderlib.Spider.BookSearch;
 import com.bifan.txtreaderlib.Spider.Introduction;
+import com.bifan.txtreaderlib.Spider.IntroductionBuilder;
+import com.bifan.txtreaderlib.Spider.Lisener.DataLisener;
+import com.bifan.txtreaderlib.Spider.NetDownload;
+import com.bifan.txtreaderlib.Spider.Result;
 import com.example.myapplication.Common.Adapter.PreviewAdapter;
 import com.example.myapplication.Common.Adapter.SoureAdapter;
 import com.example.myapplication.Common.Bean.Book;
@@ -53,7 +57,7 @@ public class Result2Activity extends AppCompatActivity implements DownloadListen
         listView2 =(ListView) findViewById(R.id.soureListid);
 
         new MyTask().execute();//--网站资源+服务器资源
-
+        //点击阅读---Net
         listView1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -63,6 +67,15 @@ public class Result2Activity extends AppCompatActivity implements DownloadListen
                 startActivity(intent);
             }
         });
+        //长按下载--Net
+        listView1.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                downloadFromNet(position);
+                return true;
+            }
+        });
+        //点击下载--Base
         listView2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -166,7 +179,6 @@ public class Result2Activity extends AppCompatActivity implements DownloadListen
         alert.setPositiveButton("下载", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                //notificationInit();
                 Log.i("下载确定",bookBean.toString());
                 Toast.makeText(getApplicationContext(),"开始下载",Toast.LENGTH_LONG).show();
                 loadStart(bookBean);
@@ -181,17 +193,82 @@ public class Result2Activity extends AppCompatActivity implements DownloadListen
         alert.setTitle("下载提示");
         alert.setMessage("是否开始下载？");
         alert.create().show();
-        //alert.show();
     }
+    //下载确认提示----网络资源
+    private void downloadFromNet(int position){
+        final Introduction introduction = previewList.get(position);
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setPositiveButton("下载", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
 
+                Log.i("下载确定",introduction.toString());
+                Toast.makeText(getApplicationContext(),"开始下载",Toast.LENGTH_LONG).show();
+                loadStartFormNet(introduction);
+            }
+        });
+        alert.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        alert.setTitle("下载提示");
+        alert.setMessage("是否开始下载？");
+        alert.create().show();
+    }
     //调用下载线程开始下载--服务器资源
     void loadStart(BookBean bookBean){
         new MyDownload(this,bookBean).download(Environment.getExternalStorageDirectory().getAbsolutePath(),this,index);
         index++;
     }
+    void loadStartFormNet(final Introduction introduction){
+        NetTask netTask = new NetTask(introduction);
+        netTask.execute();
+    }
+    //下载Net小说
+    class NetTask extends AsyncTask<String,String,String>{
+        Introduction introduction;
+        public NetTask(Introduction introduction) {
+            this.introduction = introduction;
+            Log.i("小说信息",introduction.toString());
+        }
+        @Override
+        protected void onPostExecute(String s) {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    new NetDownload(new DataLisener() {
+                        @Override
+                        public void addToDatabase(Result result) {
+                            if(result.isOk()){
+                                Result2Activity.this.addToDatabase(result.getName(),result.getPath());
+                                index++;
+                            }else {
+                                Log.i("小说下载信息","下载失败,result:"+result.toString());
+                                Toast.makeText(getApplicationContext(),result.getName(),Toast.LENGTH_SHORT);
+                            }
+                        }
+                    }).download(Environment.getExternalStorageDirectory().getAbsolutePath(),introduction,getApplicationContext(),index);
+                }
+            }).start();
 
+        }
+        @Override
+        protected String doInBackground(String... strings) {
+            introduction = new IntroductionBuilder().getIntroduction(BookSearch.getMainUrl(),introduction.getFaceUrl());
+            return null;
+        }
+    }
     //将下载好的文件添加到书架（数据库）
     private void addToDatabase(Book book){
+        book.save();
+    }
+    public void addToDatabase(String name,String path){
+        Log.i("存书架信息",name+" 路径："+path);
+        Book book = new Book();
+        book.setBookName(name);
+        book.setPath(path);
         book.save();
     }
 }

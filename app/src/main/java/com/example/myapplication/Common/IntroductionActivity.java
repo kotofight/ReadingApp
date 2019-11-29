@@ -57,12 +57,6 @@ public class IntroductionActivity extends AppCompatActivity {
                     TxtConfig.saveIsOnVerticalPageMode(getApplicationContext(),false);
                     //设置默认字体大小
                     TxtConfig.saveTextSize(getApplicationContext(),42);
-                    /*Intent intent = new Intent();
-                    intent.putExtra("FilePath", bookPath);
-                    intent.putExtra("FileName", introduction.getName());
-                    intent.setClass(getApplicationContext(), HwTxtPlayActivity.class);
-                    startActivity(intent);*/
-                    //HwTxtPlayActivity.loadTxtFile(getApplicationContext(),bookPath);
                     Intent intent = new Intent();
                     intent.putExtra("ContentStr","小说内容");
                     intent.putExtra("FileName", introduction.getName());
@@ -91,12 +85,6 @@ public class IntroductionActivity extends AppCompatActivity {
             introView.requestLayout();
 
         }
-
-        @Override
-        protected void onProgressUpdate(Integer... values) {
-
-        }
-
         @Override
         protected List<Introduction> doInBackground(String... strings) {
             introduction = new IntroductionBuilder().getIntroduction(BookSearch.getMainUrl(),faceUrl);

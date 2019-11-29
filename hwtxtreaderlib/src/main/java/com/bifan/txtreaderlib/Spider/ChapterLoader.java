@@ -3,6 +3,7 @@ package com.bifan.txtreaderlib.Spider;
 import android.util.Log;
 
 import com.bifan.txtreaderlib.MyConfig;
+import com.bifan.txtreaderlib.Spider.Lisener.DownloadLisener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,17 +55,23 @@ public class ChapterLoader {
         return list;
     }
     //加载所有章节
-    public List<Chapter> loadAllChapters(){
+    public List<Chapter> loadAllChapters(DownloadLisener lisener){
+        Log.i("Net小说下载",introduction.toString());
         List<Chapter> list = new ArrayList<>();
         List<Chapter> tmp;
+        int pro=0;
         if(null!=introduction&&null!=introduction.getCatalog()){
             tmp = (introduction.getCatalog());
+            lisener.downloadStart(tmp.size());//--监听下载开始
             for(Chapter chapter:tmp){
-                Chapter chapter1 = loadOneChapter(introduction.getFaceUrl(),chapter.getContent());
+                Chapter chapter1 = loadOneChapter(MyConfig.BookBaseUrl,chapter.getContent());
                 list.add(chapter1);
+                lisener.downloadProgress(pro++,tmp.size());//--监听下载进度
             }
+            lisener.downloadEnd(list);//--监听下载完成
             return list;
         }
+        lisener.downloadError();//--监听下载错误
         return null;
     }
 }

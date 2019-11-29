@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.List;
 
 public class FileUtil {
-    public static void writeToFile(String filePath, String fileName, List<Chapter> list){
+    public static File writeToFile(String filePath, String fileName, List<Chapter> list){
         File dir = new File(filePath);
         if(!dir.exists())
             dir.mkdir();
@@ -20,8 +20,21 @@ public class FileUtil {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }else {
+            file = new File(file,fileName);
+            for(int i = 1;file.exists();i++){
+                file = new File(filePath,fileName.substring(0,fileName.indexOf("."))+"("+i+")"+fileName.substring(fileName.indexOf(".")));
+            }
+            if(!file.exists()){
+                try {
+                    file.createNewFile();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
         write(file,false,list);
+        return file;
     }
     public static void appendToFile(String filePath, String fileName, List<Chapter> list){
         File dir = new File(filePath);
@@ -40,6 +53,7 @@ public class FileUtil {
     }
     private static void write(File file,boolean append,List<Chapter> list){
         FileWriter writer = null;
+        Log.i("信息","文件开始写入本地");
         try {
             writer = new FileWriter(file,append);
             for(Chapter chapter:list){
@@ -47,6 +61,7 @@ public class FileUtil {
                 writer.write("\n");
                 writer.write(chapter.getContent());
                 writer.flush();
+                Log.i("小说文件章节写入信息",chapter.getContent());
             }
         }catch (Exception e)
         {
