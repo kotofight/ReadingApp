@@ -2,9 +2,9 @@ package com.example.myapplication.FileUtil;
 
 import android.util.Log;
 
-import com.example.myapplication.RequiestTest.FileService;
-import com.example.myapplication.RequiestTest.ResponseRec;
-import com.example.myapplication.RequiestTest.RetrofitGet;
+import com.example.myapplication.RequiestService.FileService;
+import com.example.myapplication.RequiestService.ResponseRec;
+import com.example.myapplication.RequiestService.RetrofitGet;
 
 import java.io.DataOutputStream;
 import java.io.File;

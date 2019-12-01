@@ -3,9 +3,9 @@ package com.example.myapplication.FileUtil;
 import android.util.Log;
 
 import com.bifan.txtreaderlib.Spider.BookBean;
-import com.example.myapplication.RequiestTest.ResponseRec;
-import com.example.myapplication.RequiestTest.RetrofitGet;
-import com.example.myapplication.RequiestTest.SearchService;
+import com.example.myapplication.RequiestService.ResponseRec;
+import com.example.myapplication.RequiestService.RetrofitGet;
+import com.example.myapplication.RequiestService.SearchService;
 
 import java.util.List;
 

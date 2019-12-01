@@ -10,9 +10,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.myapplication.Common.Style2Activity;
-import com.example.myapplication.RequiestTest.RequestService;
-import com.example.myapplication.RequiestTest.ResponseRec;
-import com.example.myapplication.RequiestTest.RetrofitGet;
+import com.example.myapplication.RequiestService.RequestService;
+import com.example.myapplication.RequiestService.ResponseRec;
+import com.example.myapplication.RequiestService.RetrofitGet;
 import com.example.myapplication.ResponseModel.User;
 import com.example.myapplication.SQLiteDB.DBOperation;
 

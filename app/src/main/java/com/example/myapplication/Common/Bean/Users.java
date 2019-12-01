@@ -1,6 +1,9 @@
 package com.example.myapplication.Common.Bean;
 
-public class Users {
+
+import java.io.Serializable;
+
+public class Users implements Serializable{
     private int userPicPath;//个人头像
     private String userName;// 发布人
     private String datetime;// 发布时间
@@ -139,5 +142,54 @@ public class Users {
     public void setThumbUp(int thumbUp) {
         this.thumbUp = thumbUp;
     }
+/*
+    @Override
+    public int describeContents() {
+        return 0;
+    }
 
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(userPicPath);
+        dest.writeString(userName);
+        dest.writeInt(look);
+        dest.writeString(content);
+        dest.writeString(datetime);
+        dest.writeString(address);
+        dest.writeInt(picPath);
+        dest.writeInt(forwardImg);
+        dest.writeInt(forward);
+        dest.writeInt(commentImg);
+        dest.writeInt(comment);
+        dest.writeInt(thumbUpImg);
+        dest.writeInt(thumbUp);
+    }
+    public static final Parcelable.Creator<Users> CREATOR = new Creator<Users>() {
+
+        @Override
+        public Users createFromParcel(Parcel source) {
+            // 必须按成员变量的顺序读取数据，不然会出现获取数据报错
+            Users users = new Users();
+            users.setUserPicPath(source.readInt());
+            users.setUserName(source.readString());
+            users.setDatetime(source.readString());
+            users.setAddress(source.readString());
+            users.setLook(source.readInt());
+            users.setContent(source.readString());
+            users.setPicPath(source.readInt());
+            users.setForwardImg(source.readInt());
+            users.setForward(source.readInt());
+            users.setCommentImg(source.readInt());
+            users.setComment(source.readInt());
+            users.setThumbUpImg(source.readInt());
+            users.setThumbUp(source.readInt());
+            return users;
+        }
+
+        @Override
+        public Users[] newArray(int size) {
+            // TODO Auto-generated method stub
+            return new Users[size];
+        }
+    };*/
 }

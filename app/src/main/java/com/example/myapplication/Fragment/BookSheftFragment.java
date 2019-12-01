@@ -66,11 +66,7 @@ public class BookSheftFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.book_shelf, container, false);
-      /*  for(Book book:books){
-            book.save();
-        }*/
-        //LitePal.getDatabase();
-        //initBook();
+
         RecyclerView recyclerView=(RecyclerView)rootView.findViewById(R.id.recycler_view);
         GridLayoutManager layoutManager=new GridLayoutManager(getContext(),3);
         recyclerView.setLayoutManager(layoutManager);

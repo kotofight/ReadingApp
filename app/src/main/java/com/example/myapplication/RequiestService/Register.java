@@ -1,12 +1,9 @@
-package com.example.myapplication.RequiestTest;
+package com.example.myapplication.RequiestService;
 
 import com.example.myapplication.ResponseModel.User;
 
-import java.util.Map;
-
 import retrofit2.Call;
 import retrofit2.http.Field;
-import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
 

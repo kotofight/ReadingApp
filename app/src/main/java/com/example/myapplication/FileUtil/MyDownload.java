@@ -12,8 +12,8 @@ import com.bifan.txtreaderlib.Spider.BookBean;
 import com.example.myapplication.Common.Bean.Book;
 import com.example.myapplication.Listener.DownloadListener;
 import com.example.myapplication.R;
-import com.example.myapplication.RequiestTest.DownloadService;
-import com.example.myapplication.RequiestTest.RetrofitGet;
+import com.example.myapplication.RequiestService.DownloadService;
+import com.example.myapplication.RequiestService.RetrofitGet;
 
 import java.io.DataInputStream;
 import java.io.File;

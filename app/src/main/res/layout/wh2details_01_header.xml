@@ -36,6 +36,7 @@
                 android:layout_height="wrap_content"
                 style="@style/username"
                 android:text="悦读APP官方"
+                android:id="@+id/myComment"
                 app:layout_alignSelf="flex_end" />
         </com.google.android.flexbox.FlexboxLayout>
 

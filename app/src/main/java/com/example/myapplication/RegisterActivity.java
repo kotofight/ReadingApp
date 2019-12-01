@@ -10,10 +10,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.myapplication.RequiestTest.CheckEmail;
-import com.example.myapplication.RequiestTest.Register;
-import com.example.myapplication.RequiestTest.ResponseRec;
-import com.example.myapplication.RequiestTest.RetrofitGet;
+import com.example.myapplication.RequiestService.CheckEmail;
+import com.example.myapplication.RequiestService.Register;
+import com.example.myapplication.RequiestService.ResponseRec;
+import com.example.myapplication.RequiestService.RetrofitGet;
 import com.example.myapplication.ResponseModel.User;
 import com.example.myapplication.ServiceAPI.RegisterCheck;
 

@@ -1,19 +1,22 @@
 package com.example.myapplication.Common.Adapter;
+
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.myapplication.Common.Bean.Users;
 import com.example.myapplication.Common.Details_01;
 import com.example.myapplication.R;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 
 
@@ -75,13 +78,22 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
             public void onClick(View v) {
                 int position=holder.getAdapterPosition();
                 Users users=usersList.get(position);
-
+                ArrayList<Users> myCommonts = new ArrayList<>();
+                for(Users user:usersList){
+                    if(user.getUserName().equals(users.getUserName())){
+                        myCommonts.add(user);
+                    }
+                }
                 //点击用户名称使其跳转到该用户所对应的详情介绍界面
 //                  Intent intent=new Intent(UserNewsAdapter.this,User_DetailsActivity.class);
 //                  startActivity(intent);
 //                  Adapter是一个java类并不是一个Activity，普通的java类并不能正确获得上下文环境，
 //                  因为这个类没有在AndroidManifest文件里面注册。所以在进行条状的时候只要需要手动获取上下文环境就可以了，
                 Intent intent=new Intent(v.getContext(), Details_01.class);
+                Log.i("消息","大小："+myCommonts.size());
+               /* Bundle bundle = new Bundle();
+                bundle.putParcelableArrayList("list",myCommonts);
+                intent.putExtra("key",bundle);*/
                 v.getContext().startActivity(intent);
             }
         });
@@ -90,6 +102,17 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(v.getContext(),Details_01.class);
+                int position=holder.getAdapterPosition();
+                Users users=usersList.get(position);
+                ArrayList<String> list = new ArrayList<>();
+                for(Users user:usersList){
+                    if(user.getUserName().equals(users.getUserName())){
+                        list.add(user.getDatetime());
+                        intent.putExtra(user.getDatetime(),user);
+                    }
+                }
+                intent.putExtra("name",users.getUserName());
+                intent.putStringArrayListExtra("list",list);
                 v.getContext().startActivity(intent);
             }
         });
@@ -134,10 +157,16 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
                 if(flag==true){
                     holder.thumbUpImg.setImageResource(R.drawable.thumbup2);
                     flag=false;
+                    int thumb = Integer.parseInt(String.valueOf(holder.thumbUp.getText()));
+                    thumb++;
+                    holder.thumbUp.setText(thumb+"");
                 }
                 else{
                     holder.thumbUpImg.setImageResource(R.drawable.thumbup);
                     flag=true;
+                    int thumb = Integer.parseInt(String.valueOf(holder.thumbUp.getText()));
+                    thumb--;
+                    holder.thumbUp.setText(thumb+"");
                 }
             }
         });

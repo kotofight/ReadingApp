@@ -1,4 +1,4 @@
-package com.example.myapplication.RequiestTest;
+package com.example.myapplication.RequiestService;
 
 import java.io.Serializable;
 

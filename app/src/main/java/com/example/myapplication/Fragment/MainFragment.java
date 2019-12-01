@@ -319,7 +319,8 @@ public class MainFragment extends Fragment {
      });
 
      // 开启轮询
-     new Thread(){
+     thread =
+             new Thread("running"){
          public void run(){
              isRunning = true;
              while(isRunning){
@@ -337,9 +338,16 @@ public class MainFragment extends Fragment {
                      e.printStackTrace();
                  }             }
          }
-     }.start();
+     };
+     thread.start();
 
  }
+    Thread thread;
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        thread.destroy();
+    }
 }
 
 

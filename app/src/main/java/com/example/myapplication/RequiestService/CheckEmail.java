@@ -1,4 +1,4 @@
-package com.example.myapplication.RequiestTest;
+package com.example.myapplication.RequiestService;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
