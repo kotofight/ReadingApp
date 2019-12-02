@@ -11,4 +11,6 @@ import retrofit2.http.Query;
 public interface SearchService {
         @GET("search")
         Call<ResponseRec<List<BookBean>>> getCall(@Query("fileName") String bookName);
+        @GET("getLastBooks")
+        Call<ResponseRec<List<BookBean>>> getLastBooks();
 }

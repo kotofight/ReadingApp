@@ -2,11 +2,15 @@ package com.example.myapplication.Fragment;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,17 +24,26 @@ import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bifan.txtreaderlib.Spider.BookBean;
 import com.example.myapplication.Common.Adapter.CLoopViewAdapter;
+import com.example.myapplication.Common.Adapter.PreviewAdapter;
+import com.example.myapplication.Common.Adapter.SoureAdapter;
+import com.example.myapplication.Common.Bean.Book;
 import com.example.myapplication.Common.Listener.CpagerOnClickListener;
 import com.example.myapplication.Common.Result2Activity;
 import com.example.myapplication.FileUtil.FileFunc;
 import com.example.myapplication.FileUtil.LoadUpThread;
+import com.example.myapplication.FileUtil.MyDownload;
+import com.example.myapplication.FileUtil.SearchUtil;
+import com.example.myapplication.Listener.DownloadListener;
 import com.example.myapplication.R;
 import com.example.myapplication.SQLiteDB.DBOperation;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
@@ -87,38 +100,52 @@ public class MainFragment extends Fragment {
     }
 
     @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mContentText = getArguments().getString(ARG_SHOW_TEXT);
         }
     }
-
+    public final List<BookBean> soureList=new ArrayList<>();
+    private boolean flag=true;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.ccactivity_main, container, false);
+        listView = rootView.findViewById(R.id.main_list_view);
+        if(flag){
+            task.execute();
+            flag=false;
+        }else {
+            SoureAdapter adapter1 =new SoureAdapter(getContext(),R.layout.source_list,soureList);
+            listView.setAdapter(adapter1);
+        }
 
         initView2(rootView);//定义了搜索的相关事件
         initData();//初始化搜索的数据
         setListener();//搜索的监听事件
         initLoopView(rootView);  //实现轮播图
-        listView = rootView.findViewById(R.id.main_list_view);
-        //创建适配器
-        /**
-         * @param context The current context. 当前的上下文
-         * @param resource The resource ID for a layout file containing a TextView to use when
-         *                 instantiating views.   listView子项布局的id
-         * @param objects The objects to represent in the ListView.  适配的数据
-         */
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),android.R.layout.simple_list_item_1,book);
+        /*ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),android.R.layout.simple_list_item_1,book);
         //绑定适配器
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Toast.makeText(getContext(),"测试数据",Toast.LENGTH_SHORT).show();
+            }
+        });*/
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if(soureList.get(position).getFileNum()!=-1){
+                    download(position);
+                }
             }
         });
         iv1 = rootView.findViewById(R.id.iv1);
@@ -136,9 +163,72 @@ public class MainFragment extends Fragment {
                 startActivityForResult(intent,1000);
             }
         });
-
         return rootView;
     }
+    MyTask task = new MyTask();
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    class MyTask extends AsyncTask<String ,Integer,String> {
+        @Override
+        protected void onPostExecute(String s) {
+            if(soureList.size()<1||soureList==null){
+                //soureList.add(new BookBean("暂无资源分享",-1));
+            }
+            SoureAdapter adapter1 =new SoureAdapter(getContext(),R.layout.source_list,soureList);
+            listView.setAdapter(adapter1);
+            adapter1.notifyDataSetInvalidated();
+            mSearchView.requestFocus();
+        }
+        @Override
+        protected String doInBackground(String... strings) {
+            soureList.clear();
+            SearchUtil.searchFiveBook(soureList);
+            return null;
+        }
+    }
+    //下载确认提示----服务器资源
+    private void download(int position){
+        final BookBean bookBean = soureList.get(position);
+        androidx.appcompat.app.AlertDialog.Builder alert = new androidx.appcompat.app.AlertDialog.Builder(getContext());
+        alert.setPositiveButton("下载", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Log.i("下载确定",bookBean.toString());
+                Toast.makeText(getContext(),"开始下载",Toast.LENGTH_LONG).show();
+                loadStart(bookBean);
+            }
+        });
+        alert.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        alert.setTitle("下载提示");
+        alert.setMessage("是否开始下载？");
+        alert.create().show();
+    }
+    void loadStart(BookBean bookBean){
+        new MyDownload(getContext(),bookBean).download(Environment.getExternalStorageDirectory().getAbsolutePath(), new DownloadListener() {
+            @Override
+            public void startDownload(int index, int size) {
+            }
+            @Override
+            public void setDownloadPro(int index, int position) {
+            }
+            @Override
+            public void endDownload(int index, Book book) {
+            }
+            @Override
+            public void errorDownload(int index) {
+            }
+        }, index);
+        index++;
+    }
+    private static int index=0;//--下载通知id
     //文件路径选择回调
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
@@ -206,7 +296,6 @@ public class MainFragment extends Fragment {
     //搜索的监听
     private void setListener(){
         //mBtnNext.setOnClickListener(this);
-
         // 设置搜索文本监听
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             //当点击搜索按钮时触发该方法
@@ -247,11 +336,11 @@ public class MainFragment extends Fragment {
 
      // 文本描述
      mDec = new String[]{
-             "第一张推荐图",
-             "第二张推荐图",
-             "第三张推荐图",
-             "第四张推荐图",
-             "第五张推荐图"
+             "推荐",
+             "推荐",
+             "",
+             "推荐",
+             "推荐"
      };
 
      mImg_id = new int[]{
@@ -319,8 +408,7 @@ public class MainFragment extends Fragment {
      });
 
      // 开启轮询
-     thread =
-             new Thread("running"){
+     thread = new Thread("running"){
          public void run(){
              isRunning = true;
              while(isRunning){
@@ -346,7 +434,7 @@ public class MainFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        thread.destroy();
+        isRunning=false;
     }
 }
 

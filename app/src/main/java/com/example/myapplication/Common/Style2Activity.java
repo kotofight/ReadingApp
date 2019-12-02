@@ -56,7 +56,6 @@ public class Style2Activity extends AppCompatActivity {
         // init view pager
         mAdapter = new MyFragmentPagerAdapter(getSupportFragmentManager(), mFragments);//用碎片列表 调用了下面的函数
         mViewPager.setAdapter(mAdapter);//导航栏上面的布局 是用了 碎片适配器
-
         // register listener
         mViewPager.addOnPageChangeListener(mPageChangeListener);//导航栏上面的布局
         mTabRadioGroup.setOnCheckedChangeListener(mOnCheckedChangeListener);//导航栏的布局
