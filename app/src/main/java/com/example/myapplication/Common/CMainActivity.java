@@ -28,10 +28,7 @@ public class CMainActivity extends AppCompatActivity {
     private TextView loop_dec;
     private int previousSelectedPosition = 0;
     boolean isRunning = false;
-    private ImageView iv1;
-    private ImageView iv2;
-    private ImageView iv3;
-    private ImageView iv4;
+
     private ListView listView;
     private String[] book={"天龙八部","我在未来等你","龙族","我和我的祖国","那些年我们一起追过的女孩","火星撞地球","爱情三十六计","空心","我"};
 
@@ -51,11 +48,7 @@ public class CMainActivity extends AppCompatActivity {
          */
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(CMainActivity.this,android.R.layout.simple_list_item_1,book);
         //绑定适配器
-        listView.setAdapter(adapter);
-        iv1 = (ImageView)findViewById(R.id.iv1);
-        iv2 = (ImageView)findViewById(R.id.iv2);
-        iv3 = (ImageView)findViewById(R.id.iv3);
-        iv4 = (ImageView)findViewById(R.id.iv4);
+
     }
 
     private void initLoopView() {
